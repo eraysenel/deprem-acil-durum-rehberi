@@ -6,75 +6,93 @@
 <title>Deprem & Acil Durum Hazırlık Rehberi</title>
 <style>
   :root{
-    --bg:#0f172a; --card:#ffffff; --ink:#0f172a; --muted:#475569;
-    --brand:#0d9488; --brand-d:#0f766e; --acil:#dc2626; --line:#e2e8f0;
-    --ok:#16a34a; --warn:#f59e0b;
+    --card:#ffffff; --ink:#0f172a; --muted:#64748b; --brand:#0d9488; --brand-d:#0f766e;
+    --acil:#dc2626; --line:#e2e8f0; --ok:#16a34a; --soft:#f0fdfa;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,"Segoe UI",Roboto,Arial,sans-serif;
        background:linear-gradient(180deg,#0f172a,#134e4a);color:var(--ink);line-height:1.55}
-  .wrap{max-width:820px;margin:0 auto;padding:18px}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;
-         color:#fff;padding:10px 4px 18px}
+  .wrap{max-width:840px;margin:0 auto;padding:18px}
+  header{color:#fff;padding:8px 4px 16px}
+  .htop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
   header h1{font-size:22px;margin:0}
-  header p{margin:2px 0 0;color:#a7f3d0;font-size:13px}
-  .btn{background:#fff;color:var(--brand-d);border:0;border-radius:10px;padding:10px 14px;
-       font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap}
-  .btn:hover{background:#f0fdfa}
-  .card{background:var(--card);border-radius:14px;padding:18px;margin:0 0 16px;
-        box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  header p{margin:3px 0 0;color:#a7f3d0;font-size:13px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{border:0;border-radius:10px;padding:9px 13px;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
+  .btn.primary{background:#fff;color:var(--brand-d)} .btn.primary:hover{background:var(--soft)}
+  .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
+  .btn.ghost:hover{background:rgba(255,255,255,.24)}
+  .card{background:var(--card);border-radius:14px;padding:18px;margin:0 0 16px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
   .card h2{margin:0 0 12px;font-size:18px;display:flex;align-items:center;gap:8px}
-  .tag{font-size:12px;font-weight:700;color:#fff;background:var(--brand);
-       padding:2px 8px;border-radius:999px}
+  .tag{font-size:12px;font-weight:700;color:#fff;background:var(--brand);padding:2px 8px;border-radius:999px}
+  .muted{color:var(--muted);font-size:14px}
   .acil{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-  .acil a{display:flex;flex-direction:column;text-decoration:none;border:2px solid var(--line);
-          border-radius:12px;padding:12px;color:var(--ink)}
+  .acil a{display:flex;flex-direction:column;text-decoration:none;border:2px solid var(--line);border-radius:12px;padding:12px;color:var(--ink)}
   .acil a:hover{border-color:var(--acil)}
-  .acil .num{font-size:26px;font-weight:800;color:var(--acil)}
-  .acil .lbl{font-size:13px;color:var(--muted)}
+  .acil .num{font-size:26px;font-weight:800;color:var(--acil)} .acil .lbl{font-size:13px;color:var(--muted)}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .step{border:2px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-  .step .e{font-size:34px}
-  .step b{display:block;font-size:16px;margin:6px 0 4px;color:var(--brand-d)}
-  .step span{font-size:13px;color:var(--muted)}
+  .step .e{font-size:34px} .step b{display:block;font-size:16px;margin:6px 0 4px;color:var(--brand-d)} .step span{font-size:13px;color:var(--muted)}
+  /* hesaplayıcı */
+  .calc{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .calc .fld{display:flex;flex-direction:column;font-size:13px;color:var(--muted)}
+  .calc input{width:90px;padding:9px;border:1px solid var(--line);border-radius:10px;font-size:16px}
+  .calc .out{flex:1;min-width:240px;background:var(--soft);border:1px solid #99f6e4;border-radius:12px;padding:12px 14px;font-size:15px}
+  /* çanta */
   .group{margin:14px 0 4px;font-weight:700;color:var(--brand-d);font-size:14px}
   ul.check{list-style:none;margin:6px 0;padding:0}
   ul.check li{display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:8px}
   ul.check li:hover{background:#f8fafc}
   ul.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--brand);flex:0 0 auto}
   ul.check label{font-size:15px;cursor:pointer}
-  .prog{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 2px}
-  .prog>i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+  .prog{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 2px} .prog>i{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
   .progtxt{font-size:13px;color:var(--muted)}
+  /* kişi kartları */
+  #people{display:grid;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fcfdfd}
+  .pcard-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .pcard-h strong{font-size:15px}
+  .rm{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pcard label{display:block;font-size:12px;color:var(--muted);margin:8px 0 3px;font-weight:600}
+  .pcard input,.pcard select{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
+  .chip input{width:15px;height:15px;accent-color:var(--brand);margin:0}
+  .addbtn{margin-top:12px;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;font-size:14px}
+  .addbtn:hover{background:var(--brand-d)}
+  /* plan */
   .form label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px;font-weight:600}
   .form input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:15px}
   .twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* sonrası */
   .dl{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .dl .box{border-radius:12px;padding:12px 14px}
-  .dl .do{background:#f0fdf4;border:1px solid #bbf7d0}
-  .dl .dont{background:#fef2f2;border:1px solid #fecaca}
-  .dl h3{margin:0 0 8px;font-size:15px}
-  .dl .do h3{color:#15803d}
-  .dl .dont h3{color:#b91c1c}
-  .dl ul{margin:0;padding-left:18px}
-  .dl li{font-size:14px;margin:5px 0}
+  .dl .do{background:#f0fdf4;border:1px solid #bbf7d0} .dl .dont{background:#fef2f2;border:1px solid #fecaca}
+  .dl h3{margin:0 0 8px;font-size:15px} .dl .do h3{color:#15803d} .dl .dont h3{color:#b91c1c}
+  .dl ul{margin:0;padding-left:18px} .dl li{font-size:14px;margin:5px 0}
   .save{font-size:12px;color:var(--ok);margin-left:8px;opacity:0;transition:opacity .2s}
+  .privacy{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;font-size:13px;color:#854d0e}
   footer{color:#cbd5e1;font-size:12px;text-align:center;padding:8px 4px 26px}
-  @media (max-width:560px){.steps{grid-template-columns:1fr}.twocol,.dl{grid-template-columns:1fr}}
-  @media print{
-    body{background:#fff}.btn,header p,footer{display:none}
-    header h1{color:#000}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
-  }
+  @media (max-width:560px){.steps,.twocol,.dl,.grid2{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.btn,.toolbar,.addbtn,.rm,header p,footer{display:none}header h1{color:#000}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <h1>🆘 Deprem & Acil Durum Hazırlık Rehberi</h1>
-      <p>Çevrimdışı çalışır · işaretlerin ve planın bu cihaza kaydedilir · yazdırıp asabilirsin</p>
+    <div class="htop">
+      <div>
+        <h1>🆘 Deprem & Acil Durum Hazırlık Rehberi</h1>
+        <p>Çevrimdışı çalışır · bilgiler bu cihaza kaydedilir · yazdırılabilir & yedeklenebilir</p>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" onclick="window.print()">🖨️ Yazdır / PDF</button>
+        <button class="btn ghost" onclick="exportData()">⬇️ Yedek al</button>
+        <button class="btn ghost" onclick="document.getElementById('imp').click()">⬆️ Geri yükle</button>
+        <input type="file" id="imp" accept="application/json" style="display:none">
+      </div>
     </div>
-    <button class="btn" onclick="window.print()">🖨️ Yazdır / PDF</button>
   </header>
 
   <section class="card">
@@ -97,33 +115,39 @@
   </section>
 
   <section class="card">
+    <h2>🧮 Su & Gıda İhtiyaç Hesaplayıcı</h2>
+    <div class="calc">
+      <div class="fld">Aile üyesi<input id="calcN" value="0" readonly></div>
+      <div class="fld">Kaç günlük?<input id="gun" type="number" min="1" value="3"></div>
+      <div class="out" id="calcOut">-</div>
+    </div>
+    <p class="muted" style="margin:10px 0 0">AFAD en az 3 günlük hazırlık önerir. Kişi sayısı aşağıdaki aile üyelerinden otomatik gelir.</p>
+  </section>
+
+  <section class="card">
     <h2>🎒 Afet Çantası Kontrol Listesi <span class="save" id="save1">kaydedildi ✓</span></h2>
     <div class="prog"><i id="bar"></i></div>
     <div class="progtxt" id="progtxt">0 / 0 hazır</div>
-
     <div class="group">Su & Gıda (en az 3 gün)</div>
-    <ul class="check" data-grp>
+    <ul class="check">
       <li><input type="checkbox" id="c1"><label for="c1">Kişi başı günde 4 L su</label></li>
       <li><input type="checkbox" id="c2"><label for="c2">Bozulmayan gıda (konserve, kuruyemiş, bisküvi)</label></li>
       <li><input type="checkbox" id="c3"><label for="c3">Konserve açacağı + plastik çatal/kaşık</label></li>
     </ul>
-
     <div class="group">Sağlık & Hijyen</div>
-    <ul class="check" data-grp>
+    <ul class="check">
       <li><input type="checkbox" id="c4"><label for="c4">İlk yardım çantası + kullandığın ilaçlar</label></li>
       <li><input type="checkbox" id="c5"><label for="c5">Islak mendil, dezenfektan, maske</label></li>
       <li><input type="checkbox" id="c6"><label for="c6">Düdük (enkaz altında ses vermek için)</label></li>
     </ul>
-
     <div class="group">Işık, Enerji & İletişim</div>
-    <ul class="check" data-grp>
+    <ul class="check">
       <li><input type="checkbox" id="c7"><label for="c7">El feneri + yedek pil</label></li>
       <li><input type="checkbox" id="c8"><label for="c8">Powerbank (dolu) + şarj kablosu</label></li>
       <li><input type="checkbox" id="c9"><label for="c9">Pilli/kurmalı radyo</label></li>
     </ul>
-
     <div class="group">Belgeler & Diğer</div>
-    <ul class="check" data-grp>
+    <ul class="check">
       <li><input type="checkbox" id="c10"><label for="c10">Kimlik fotokopileri + bir miktar nakit</label></li>
       <li><input type="checkbox" id="c11"><label for="c11">Yedek anahtar, battaniye, yağmurluk</label></li>
       <li><input type="checkbox" id="c12"><label for="c12">Bebek/yaşlı/evcil hayvan için özel ihtiyaçlar</label></li>
@@ -131,7 +155,14 @@
   </section>
 
   <section class="card">
-    <h2>👨‍👩‍👧 Aile Acil Durum Planı <span class="save" id="save2">kaydedildi ✓</span></h2>
+    <h2>👨‍👩‍👧 Aile Üyeleri <span class="save" id="saveP">kaydedildi ✓</span></h2>
+    <p class="muted">Her kişiyi ayrı ayrı ekle - bu bilgiler bir acil durumda hayat kurtarır (kan grubu, ilaç, alerji).</p>
+    <div id="people"></div>
+    <button class="addbtn" onclick="addPerson()">＋ Kişi ekle</button>
+  </section>
+
+  <section class="card">
+    <h2>📍 Buluşma & Acil Durum Planı <span class="save" id="save2">kaydedildi ✓</span></h2>
     <div class="form">
       <div class="twocol">
         <div><label>Ev dışı buluşma noktası</label><input data-f id="f1" placeholder="ör. mahalle parkı, ... cami önü"></div>
@@ -141,62 +172,136 @@
         <div><label>En yakın toplanma alanı (AFAD)</label><input data-f id="f3" placeholder="ör. ... okulu bahçesi"></div>
         <div><label>Gaz/elektrik/su vanaları nerede?</label><input data-f id="f4" placeholder="ör. mutfak dolabı altı"></div>
       </div>
-      <label>Aile üyeleri & kan grupları</label>
-      <input data-f id="f5" placeholder="ör. Ali 0Rh+, Ayşe ARh-, ...">
     </div>
   </section>
 
   <section class="card">
     <h2>🕐 Deprem Sonrası İlk Saatler</h2>
     <div class="dl">
-      <div class="box do">
-        <h3>✅ Yap</h3>
-        <ul>
-          <li>Kendini ve yakınını kontrol et, sakin kal</li>
-          <li>Gaz/elektrik/su vanalarını kapat</li>
-          <li>Sağlam ayakkabı giy (cam/moloz)</li>
-          <li>Açık alandaki toplanma yerine git</li>
-          <li>Artçı sarsıntılara hazır ol</li>
-        </ul>
-      </div>
-      <div class="box dont">
-        <h3>⛔ Yapma</h3>
-        <ul>
-          <li>Asansör kullanma</li>
-          <li>Hasarlı binaya geri girme</li>
-          <li>Gaz kokusu varsa ışık/çakmak yakma</li>
-          <li>Hatları meşgul etme - kısa mesaj tercih et</li>
-          <li>Söylentiye değil resmi kaynağa (AFAD) güven</li>
-        </ul>
-      </div>
+      <div class="box do"><h3>✅ Yap</h3><ul>
+        <li>Kendini ve yakınını kontrol et, sakin kal</li>
+        <li>Gaz/elektrik/su vanalarını kapat</li>
+        <li>Sağlam ayakkabı giy (cam/moloz)</li>
+        <li>Açık alandaki toplanma yerine git</li>
+        <li>Artçı sarsıntılara hazır ol</li>
+      </ul></div>
+      <div class="box dont"><h3>⛔ Yapma</h3><ul>
+        <li>Asansör kullanma</li>
+        <li>Hasarlı binaya geri girme</li>
+        <li>Gaz kokusu varsa ışık/çakmak yakma</li>
+        <li>Hatları meşgul etme - kısa mesaj tercih et</li>
+        <li>Söylentiye değil resmi kaynağa (AFAD) güven</li>
+      </ul></div>
     </div>
   </section>
 
+  <section class="card">
+    <div class="privacy">🔒 <b>Gizlilik:</b> Girdiğin tüm bilgiler yalnızca <b>bu cihazın tarayıcısında</b> saklanır, hiçbir sunucuya gönderilmez. Başka cihaza taşımak veya kaybetmemek için <b>"Yedek al"</b> ile bir <code>.json</code> dosyası indir; başka cihazda <b>"Geri yükle"</b> ile aç.</div>
+  </section>
+
   <footer>
-    Bu rehber genel hazırlık amaçlıdır; güncel resmi yönergeler için <b>AFAD</b>'ı esas al.
-    Hazırlandığı tarih: 24.06.2026 · Paylaşmaktan çekinme.
+    Genel hazırlık amaçlıdır; güncel resmi yönergeler için <b>AFAD</b>'ı esas al. · Paylaşmaktan çekinme.
   </footer>
 </div>
 
 <script>
-  // İşaret kutularını ve form alanlarını cihaza kaydet (localStorage), çevrimdışı çalışır.
-  function flash(id){var s=document.getElementById(id);if(!s)return;s.style.opacity=1;clearTimeout(s._t);s._t=setTimeout(function(){s.style.opacity=0},1200);}
-  function updateProgress(){
-    var boxes=document.querySelectorAll('ul.check input');
-    var done=0;boxes.forEach(function(b){if(b.checked)done++;});
-    var pct=boxes.length?Math.round(done/boxes.length*100):0;
-    document.getElementById('bar').style.width=pct+'%';
-    document.getElementById('progtxt').textContent=done+' / '+boxes.length+' hazır ('+pct+'%)';
+  function $(s){return document.querySelector(s)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function uid(){return 'p'+Date.now()+Math.floor(Math.random()*1e4)}
+  function flash(id){var s=document.getElementById(id);if(!s)return;s.style.opacity=1;clearTimeout(s._t);s._t=setTimeout(function(){s.style.opacity=0},1200)}
+
+  var KAN=['','0 Rh+','0 Rh-','A Rh+','A Rh-','B Rh+','B Rh-','AB Rh+','AB Rh-','Bilmiyorum'];
+  var IHT=['Bebek','Çocuk','Yaşlı','Hamile','Engelli','Kronik hasta','Evcil hayvan'];
+  var people=[];
+  try{people=JSON.parse(localStorage.getItem('dep_people')||'[]')||[]}catch(e){people=[]}
+
+  function savePeople(){localStorage.setItem('dep_people',JSON.stringify(people));updateCalc();flash('saveP')}
+
+  function renderPeople(){
+    var w=$('#people');w.innerHTML='';
+    if(!people.length){w.innerHTML='<p class="muted">Henüz kişi yok. Aşağıdan ekle.</p>';updateCalc();return}
+    people.forEach(function(p){
+      var tags=IHT.map(function(t){return '<label class="chip"><input type="checkbox" data-id="'+p.id+'" data-f="iht" data-val="'+esc(t)+'" '+((p.iht||[]).indexOf(t)>=0?'checked':'')+'>'+t+'</label>'}).join('');
+      var opts=KAN.map(function(k){return '<option '+(p.kan===k?'selected':'')+'>'+(k||'Kan grubu seç')+'</option>'}).join('');
+      var d=document.createElement('div');d.className='pcard';
+      d.innerHTML='<div class="pcard-h"><strong>'+(esc(p.ad)||'Yeni kişi')+'</strong>'
+        +'<button class="rm" data-id="'+p.id+'" data-act="rm">Sil</button></div>'
+        +'<div class="grid2">'
+        +'<div><label>Ad Soyad</label><input data-id="'+p.id+'" data-f="ad" value="'+esc(p.ad)+'" placeholder="Ad Soyad"></div>'
+        +'<div><label>Kan grubu</label><select data-id="'+p.id+'" data-f="kan">'+opts+'</select></div>'
+        +'<div><label>Yaş</label><input data-id="'+p.id+'" data-f="yas" value="'+esc(p.yas)+'" inputmode="numeric" placeholder="ör. 34"></div>'
+        +'<div><label>Telefon</label><input data-id="'+p.id+'" data-f="tel" value="'+esc(p.tel)+'" inputmode="tel" placeholder="05xx ..."></div>'
+        +'</div>'
+        +'<label>Kronik hastalık / düzenli ilaç</label><input data-id="'+p.id+'" data-f="saglik" value="'+esc(p.saglik)+'" placeholder="ör. astım - Ventolin">'
+        +'<label>Alerjiler</label><input data-id="'+p.id+'" data-f="alerji" value="'+esc(p.alerji)+'" placeholder="ör. penisilin, fıstık">'
+        +'<label>Özel ihtiyaç</label><div class="tags">'+tags+'</div>'
+        +'<label>Not</label><input data-id="'+p.id+'" data-f="not" value="'+esc(p.not)+'" placeholder="ek bilgi">';
+      w.appendChild(d);
+    });
+    updateCalc();
   }
-  document.querySelectorAll('ul.check input').forEach(function(b){
-    var v=localStorage.getItem('dep_'+b.id);if(v==='1')b.checked=true;
-    b.addEventListener('change',function(){localStorage.setItem('dep_'+b.id,b.checked?'1':'0');flash('save1');updateProgress();});
+
+  function addPerson(){people.push({id:uid(),ad:'',kan:'',yas:'',tel:'',saglik:'',alerji:'',iht:[],not:''});renderPeople();savePeople();
+    var ins=document.querySelectorAll('#people .pcard input[data-f="ad"]');if(ins.length)ins[ins.length-1].focus()}
+
+  // delegasyon: kişi alanları
+  $('#people').addEventListener('input',function(e){
+    var t=e.target,id=t.getAttribute('data-id'),f=t.getAttribute('data-f');if(!id||!f)return;
+    var p=people.find(function(x){return x.id===id});if(!p)return;
+    if(f==='iht'){var v=t.getAttribute('data-val');p.iht=p.iht||[];var i=p.iht.indexOf(v);if(t.checked&&i<0)p.iht.push(v);if(!t.checked&&i>=0)p.iht.splice(i,1)}
+    else{p[f]=t.value;if(f==='ad'){var h=t.closest('.pcard').querySelector('.pcard-h strong');if(h)h.textContent=t.value||'Yeni kişi'}}
+    savePeople();
   });
+  $('#people').addEventListener('change',function(e){if(e.target.tagName==='SELECT'){var id=e.target.getAttribute('data-id');var p=people.find(function(x){return x.id===id});if(p){p.kan=e.target.value;savePeople()}}});
+  $('#people').addEventListener('click',function(e){
+    var b=e.target.closest('[data-act="rm"]');if(!b)return;
+    var id=b.getAttribute('data-id');people=people.filter(function(x){return x.id!==id});renderPeople();savePeople();
+  });
+
+  // hesaplayıcı
+  function updateCalc(){
+    var n=people.length;$('#calcN').value=n;
+    var g=parseInt($('#gun').value,10);if(isNaN(g)||g<1)g=3;
+    var eff=n||1,su=eff*g*4,ogun=eff*g*3;
+    $('#calcOut').innerHTML=(n?('<b>'+n+'</b> kişi'):'<b>1</b> kişi (örnek)')+' × <b>'+g+'</b> gün → <b>'+su+' litre</b> su · <b>~'+ogun+'</b> öğün gıda';
+  }
+  $('#gun').addEventListener('input',updateCalc);
+
+  // çanta + plan kayıt
+  document.querySelectorAll('ul.check input').forEach(function(b){
+    if(localStorage.getItem('dep_'+b.id)==='1')b.checked=true;
+    b.addEventListener('change',function(){localStorage.setItem('dep_'+b.id,b.checked?'1':'0');flash('save1');updateBag()});
+  });
+  function updateBag(){var bx=document.querySelectorAll('ul.check input'),d=0;bx.forEach(function(b){if(b.checked)d++});
+    var p=bx.length?Math.round(d/bx.length*100):0;$('#bar').style.width=p+'%';$('#progtxt').textContent=d+' / '+bx.length+' hazır ('+p+'%)'}
   document.querySelectorAll('[data-f]').forEach(function(f){
     var v=localStorage.getItem('depf_'+f.id);if(v)f.value=v;
-    f.addEventListener('input',function(){localStorage.setItem('depf_'+f.id,f.value);flash('save2');});
+    f.addEventListener('input',function(){localStorage.setItem('depf_'+f.id,f.value);flash('save2')});
   });
-  updateProgress();
+
+  // yedek al / geri yükle
+  function exportData(){
+    var plan={};document.querySelectorAll('[data-f]').forEach(function(f){plan[f.id]=f.value});
+    var checklist={};document.querySelectorAll('ul.check input').forEach(function(b){checklist[b.id]=b.checked});
+    var data={app:'deprem-rehberi',version:2,savedAt:new Date().toISOString(),people:people,plan:plan,checklist:checklist,gun:$('#gun').value};
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='afet-planim.json';document.body.appendChild(a);a.click();a.remove();
+  }
+  $('#imp').addEventListener('change',function(e){
+    var file=e.target.files[0];if(!file)return;var r=new FileReader();
+    r.onload=function(){try{var d=JSON.parse(r.result);
+      if(Array.isArray(d.people)){people=d.people;localStorage.setItem('dep_people',JSON.stringify(people))}
+      if(d.plan)Object.keys(d.plan).forEach(function(k){localStorage.setItem('depf_'+k,d.plan[k])});
+      if(d.checklist)Object.keys(d.checklist).forEach(function(k){localStorage.setItem('dep_'+k,d.checklist[k]?'1':'0')});
+      if(d.gun)localStorage.setItem('dep_gun_tmp',d.gun);
+      alert('Yedek geri yüklendi.');location.reload();
+    }catch(err){alert('Dosya okunamadı: '+err.message)}};
+    r.readAsText(file);
+  });
+
+  // başlat
+  var gtmp=localStorage.getItem('dep_gun_tmp');if(gtmp){$('#gun').value=gtmp;localStorage.removeItem('dep_gun_tmp')}
+  renderPeople();updateBag();updateCalc();
 </script>
 </body>
 </html>
